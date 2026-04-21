@@ -8,7 +8,7 @@ TagManager:
   - barrier1
   - barrier2
   - bigdonut
-  - spill
+  - coffeespill
   layers:
   - Default
   - TransparentFX

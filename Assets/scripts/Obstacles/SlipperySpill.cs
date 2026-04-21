@@ -32,9 +32,11 @@ public class SlipperySpill : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //this is imp to connect the audiocontroller with the ui script
+            collisionaudiocontroller.instance.comparetagsandplaysound(gameObject.tag);
 
             Rigidbody rb = other.GetComponent<Rigidbody>();
-           // StartCoroutine(slippyspill(rb));
+            StartCoroutine(slippyspill(rb));
             StartCoroutine(Smooth360(rb));
             
         }
