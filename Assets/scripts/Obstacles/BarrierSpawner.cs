@@ -18,12 +18,13 @@ public class BarrierSpawner : MonoBehaviour
     public GameObject spawnsmoke;
     
     public Transform car;  // to track car position
-    public float spawnradius = 30f;    // radius where in barrier shall spawn
+    public float spawnradius;    // radius where in barrier shall spawn
     public LayerMask roadlayer;   //layer to detect road
 
     private Transform[] spawnpoints;  //list of spawnpoints
-    private HashSet<Transform> usepoints = new HashSet<Transform>();  // to check same spawn point dnst keep spawning barriers again
+    private HashSet<Transform> usepoints = new HashSet<Transform>();  // to check same spawn point dsnt keep spawning barriers again
 
+    private float lifetime = 7f;
     private void Start()
     {
         spawnpoints = GetComponentsInChildren<Transform>();
@@ -54,33 +55,39 @@ public class BarrierSpawner : MonoBehaviour
 
 
                 // Pass spawn position and spawn point rotation
-                StartCoroutine(spawnthesmoke(point.position, point.rotation));
+                StartCoroutine(spawnthesmoke(point.position, point.rotation, point));
                 usepoints.Add(point);
-
-                // prevent spawning twice at same point
+               
+                
             }
         }
     }
 
-    private IEnumerator spawnthesmoke(Vector3 spawnpos, Quaternion spawnrot)
+    private IEnumerator spawnthesmoke(Vector3 spawnpos, Quaternion spawnrot, Transform originpoint)
     {
         // Spawn smoke slightly above the ground
         if (spawnsmoke != null)
         {
-            Instantiate(spawnsmoke, spawnpos + Vector3.up * 0.5f, spawnrot);
+            GameObject smoke = Instantiate(spawnsmoke, spawnpos + Vector3.up * 0.5f, spawnrot);
+            Destroy(smoke, 2f);
         }
 
         yield return new WaitForSeconds(0.3f);
 
         Obstaclesettings obstacle = barrier[UnityEngine.Random.Range(0, barrier.Length)];
         Vector3 adjustedpos = spawnpos + Vector3.up * obstacle.yoffset;
-        Instantiate(obstacle.prefab, adjustedpos, spawnrot);
+        GameObject spawnedclone = Instantiate(obstacle.prefab, adjustedpos, spawnrot);
+        Destroy(spawnedclone, lifetime);
+
+        yield return new WaitForSeconds(lifetime);
+        
+
     }
     
 
     private bool IsOnRoad(Vector3 position)
     {
-        // Optional: Raycast down to check if spawn point is above road
+        
         if (Physics.Raycast(position + Vector3.up * 2f, Vector3.down, 10f, roadlayer))
         {
             return true;

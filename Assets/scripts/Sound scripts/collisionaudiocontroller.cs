@@ -73,7 +73,12 @@ public class collisionaudiocontroller : MonoBehaviour
         {
             audioSource.pitch = basepitch;
         }
-        if (effect.clips.Length > 0)// randomziation logic for picking out of many audioclips
+        if(tag == "bigdonut")
+        {
+            audioSource.PlayOneShot(effect.clips[0]);
+            audioSource.PlayOneShot(effect.clips[1]);
+        }
+        else if(effect.clips.Length > 0)// randomziation logic for picking out of many audioclips
         {
             int randindx = UnityEngine.Random.Range(0, effect.clips.Length);
             audioSource.PlayOneShot(effect.clips[randindx]);

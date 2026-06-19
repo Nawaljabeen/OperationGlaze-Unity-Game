@@ -16,7 +16,7 @@ public class playerinventory : MonoBehaviour
 
     public void barriercollided()
     {
-        numdonuts = numdonuts - 5; 
+        numdonuts = numdonuts - 3; 
         OnDonutCollected.Invoke(this);
     }
 }

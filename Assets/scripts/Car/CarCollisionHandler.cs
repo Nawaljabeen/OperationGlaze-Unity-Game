@@ -18,6 +18,8 @@ public class CarCollisionHandler : MonoBehaviour
 
     Color redcol = new Color(0.8867924f, 0.3865076f, 0.3896675f, 1f);
     Color lightbluecol = new Color(0.514151f, 0.858662f, 1f, 1f);
+    Color orange = new Color(0.9018868f, 0.5125079f, 0.3182129f, 1f);
+    Color pink = new Color(0.9169811f, 0.4204271f, 0.7733669f, 1f); 
     void Start()
     {
 
@@ -59,6 +61,15 @@ public class CarCollisionHandler : MonoBehaviour
             {
                 donutscript.hasbeencollected = true;
                 uiScript.spawnrandomtext("+5",lightbluecol);
+                int rand = UnityEngine.Random.Range(0,3);
+
+                switch (rand)
+                {
+                    case 0: uiScript.spawnrandomtext("BAM!", Color.yellow); break;
+                    case 1: uiScript.spawnrandomtext("MUNCH!!",orange); break;
+                    case 2: uiScript.spawnrandomtext("CHOMP!", Color.red); break;
+
+                }
                 
             }
         }
@@ -69,7 +80,7 @@ public class CarCollisionHandler : MonoBehaviour
     {
 
         if (uiScript != null) uiScript.ShowBarrierImpactUI();
-        uiScript.spawnrandomtext("-5",redcol);
+        uiScript.spawnrandomtext("-3",redcol);
         if (cameraScript != null) cameraScript.TriggerCameraEffect();
         if (vfxScript != null) vfxScript.HandleSmoke(collision);
 

@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5335468870898440805}
   m_Layer: 0
   m_Name: CoffeeSpill
-  m_TagString: spill
+  m_TagString: coffeespill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,8 +139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.734558, y: 1.8673577, z: 3.3247223}
-  m_Center: {x: 0.050567627, y: 0.43367887, z: -6.8131638}
+  m_Size: {x: 3.4985352, y: 1.8673577, z: 3.0239105}
+  m_Center: {x: 0.10192871, y: 0.43367887, z: -6.837578}
 --- !u!114 &5335468870898440805
 MonoBehaviour:
   m_ObjectHideFlags: 0
