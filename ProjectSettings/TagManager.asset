@@ -9,6 +9,7 @@ TagManager:
   - barrier2
   - bigdonut
   - coffeespill
+  - initiator
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ public class TimerCountdown : MonoBehaviour
     private float currenttime = 80f;
     private bool active = true;
 
-
+    public cutscenecontroller cutscenescript;
     private void Update()
     {
         if (!active) return;
@@ -22,6 +22,7 @@ public class TimerCountdown : MonoBehaviour
         if (currenttime <= 0)
         {
             stoptimer();
+            cutscenescript.Triggercamchange();
         }
 
 
