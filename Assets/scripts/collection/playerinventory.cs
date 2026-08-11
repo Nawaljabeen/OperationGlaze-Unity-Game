@@ -19,4 +19,9 @@ public class playerinventory : MonoBehaviour
         numdonuts = numdonuts - 3; 
         OnDonutCollected.Invoke(this);
     }
+    public void bigdonutcollided()
+    { 
+        numdonuts = numdonuts + 5;
+        OnDonutCollected.Invoke(this);
+    }
 }

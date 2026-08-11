@@ -3,31 +3,51 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class CarUIEffect : MonoBehaviour
 {
-    [SerializeField] private Image impactimage;
+    [Header("Score UI")] 
+    [SerializeField] private UnityEngine.UI.Image impactimage;
     [SerializeField] private GameObject scoretext;
 
     [SerializeField] private float rangeX = 100f;
     [SerializeField] private float rangeY = 200f;
     [SerializeField] private float lifetime = 2.0f;
+    [SerializeField] private float fadeDuration = 1f;
+
+    [Header("Play UI")]
+    [SerializeField] private GameObject playbutton;
+    [SerializeField] private GameObject replaybutton;
+    [SerializeField] private GameObject bubble_text;
+    private carcontrol carcontrolscript;
 
     
     private float popupduration = 1.5f;
     private float origfontsize;
     private float leastfontsize = 0f;
 
-    [SerializeField] private float fadeDuration = 1f;
+    
     private Coroutine impactCoroutine;
 
     void Start()
     {
-       
+        carcontrolscript = GetComponent<carcontrol>();
         if (impactimage != null) impactimage.gameObject.SetActive(false);
-   
+        carcontrolscript.gameObject.SetActive(false);
     }
-
+    private void startgame()
+    {
+        if (playbutton != null)
+        {
+            playbutton.SetActive(true);
+            carcontrolscript.gameObject.SetActive(true);
+        }
+        if (replaybutton != null)
+        {
+            replaybutton.SetActive(false);
+        }
+    }
     public void ShowBarrierImpactUI()
     {
         if (impactCoroutine != null) StopCoroutine(impactCoroutine);

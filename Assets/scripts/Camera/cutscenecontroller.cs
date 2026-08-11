@@ -13,13 +13,13 @@ public class cutscenecontroller : MonoBehaviour
     [SerializeField] PostProcessVolume blurvolume;
 
 
-    private bool istriggered = false;
+    public bool istriggered = false;
     
     private float targetvolume = 1f;
     private float percentage = 5f;
 
  
-    private void OnTriggerEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
 
         if (other.gameObject.CompareTag(targettag) && !istriggered)
         {

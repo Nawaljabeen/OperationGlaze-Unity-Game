@@ -8,6 +8,8 @@ using UnityEngine;
 public class TimerCountdown : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timertext;
+    [SerializeField] private Animator timeranim;
+    
 
     private float currenttime = 80f;
     private bool active = true;
@@ -23,11 +25,21 @@ public class TimerCountdown : MonoBehaviour
         {
             stoptimer();
             cutscenescript.Triggercamchange();
+            timeranim.enabled = false;
+        }
+
+        if (cutscenescript.istriggered)
+        {
+            pausetimer();
+            timeranim.enabled = false;
         }
 
 
-
-
+    }
+    public void pausetimer()
+    {
+        active = false;
+        updatetimerui();
     }
     public void stoptimer()
     {

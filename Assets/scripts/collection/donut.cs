@@ -59,12 +59,22 @@ public class donut : MonoBehaviour
         if (!hascollided)
         {
 
-            playerinventory Playerinventory = other.GetComponent<playerinventory>();
+            playerinventory Playerinventory = other.GetComponent<playerinventory>(); //other refers to the car, the player :>
             if (Playerinventory != null)
             {
-                Playerinventory.donutcollected();
-                hascollided=true;
-                isspinning = true;
+                if (gameObject.CompareTag("bigdonut"))
+                {
+                    Playerinventory.bigdonutcollided();
+                    hascollided = true;
+                    isspinning = true;
+                }
+
+                else
+                {
+                    Playerinventory.donutcollected();
+                    hascollided = true;
+                    isspinning = true;
+                }
             }
 
 
