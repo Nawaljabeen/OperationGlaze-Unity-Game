@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
+
+using Unity.VisualScripting;
 
 public class CarUIEffect : MonoBehaviour
 {
@@ -17,10 +18,11 @@ public class CarUIEffect : MonoBehaviour
     [SerializeField] private float fadeDuration = 1f;
 
     [Header("Play UI")]
-    [SerializeField] private GameObject playbutton;
-    [SerializeField] private GameObject replaybutton;
+    [SerializeField] public GameObject playbutton;
+    [SerializeField] public GameObject replaybutton;
     [SerializeField] private GameObject bubble_text;
-    private carcontrol carcontrolscript;
+    public carcontrol carcontrolscript; // here i learnt that public and serialize field is same thing - public already serializes so if im
+    //using a priv var then ill hv to srialize it but thats not tbr case for public
 
     
     private float popupduration = 1.5f;
@@ -32,21 +34,38 @@ public class CarUIEffect : MonoBehaviour
 
     void Start()
     {
-        carcontrolscript = GetComponent<carcontrol>();
+      
         if (impactimage != null) impactimage.gameObject.SetActive(false);
         carcontrolscript.gameObject.SetActive(false);
-    }
-    private void startgame()
-    {
-        if (playbutton != null)
+
+        
+        if(playbutton != null)
         {
             playbutton.SetActive(true);
-            carcontrolscript.gameObject.SetActive(true);
-        }
-        if (replaybutton != null)
-        {
             replaybutton.SetActive(false);
+           
+        
+        Button playbtn = playbutton.GetComponent<Button>();
+            if (playbtn != null)
+            {
+                playbtn.onClick.AddListener(startgame);
+            }
+
         }
+    }
+
+    
+    
+
+         void startgame()
+    {
+        
+        
+            playbutton.SetActive(false);
+            carcontrolscript.gameObject.SetActive(true);
+        
+
+        
     }
     public void ShowBarrierImpactUI()
     {
