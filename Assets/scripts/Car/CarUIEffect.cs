@@ -36,36 +36,41 @@ public class CarUIEffect : MonoBehaviour
     {
       
         if (impactimage != null) impactimage.gameObject.SetActive(false);
-        carcontrolscript.gameObject.SetActive(false);
+        if (carcontrolscript != null)
+        {
+            carcontrolscript.enabled = false;
 
-        
-        if(playbutton != null)
+            // Explicitly shut off all car audio & effects
+            carcontrolscript.ToggleEngineSound(false);
+            carcontrolscript.togglesmoke(false);
+            carcontrolscript.toggleskidsound(false);
+        }
+
+        if (playbutton != null)
         {
             playbutton.SetActive(true);
-            replaybutton.SetActive(false);
-           
-        
-        Button playbtn = playbutton.GetComponent<Button>();
+            if (replaybutton != null) replaybutton.SetActive(false);
+
+            Button playbtn = playbutton.GetComponent<Button>();
             if (playbtn != null)
             {
                 playbtn.onClick.AddListener(startgame);
             }
-
         }
     }
 
-    
-    
 
-         void startgame()
+
+
+    void startgame()
     {
-        
-        
-            playbutton.SetActive(false);
-            carcontrolscript.gameObject.SetActive(true);
-        
+        if (playbutton != null) playbutton.SetActive(false);
 
-        
+        if (carcontrolscript != null)
+        {
+            carcontrolscript.enabled = true;
+            carcontrolscript.ToggleEngineSound(true);
+        }
     }
     public void ShowBarrierImpactUI()
     {

@@ -80,7 +80,7 @@ public class carcontrol : MonoBehaviour
         {
             rb.AddForce(transform.forward * 30f, ForceMode.Force); // helps push forward
         }
-        Enginesound();
+        UpdateEnginePitch();
     }
     private void Update()
     {
@@ -160,7 +160,7 @@ public class carcontrol : MonoBehaviour
         float steer = Input.GetAxis("Horizontal");
         float targetZ = (-steer * rollAmount) + (-lateralAcceleration * 0.5f);
 
-        // Clamp so it never over-tilts
+        // Clamp so it never over tilts
         targetZ = Mathf.Clamp(targetZ, -rollAmount, rollAmount);
 
 
@@ -193,7 +193,7 @@ private void vfx()
         }
     }
 
-    private void togglesmoke(bool toggle)
+    public void togglesmoke(bool toggle)
     {
         foreach (var smoke in skidsmoke)
         {
@@ -213,13 +213,29 @@ private void vfx()
 
 
     //audio 
-
-    private void Enginesound()
+    private void UpdateEnginePitch()
     {
-        enginesound.pitch = Mathf.Lerp(minpitch, maxpitch, Mathf.Abs(carvelocratio));
-
+        if (enginesound != null && enginesound.isPlaying)
+        {
+            enginesound.pitch = Mathf.Lerp(minpitch, maxpitch, Mathf.Abs(carvelocratio));
+        }
     }
-    private void toggleskidsound(bool toggle)
+    public void ToggleEngineSound(bool enable)
+    {
+        if (enginesound == null) return;
+
+        if (enable)
+        {
+            enginesound.mute = false;
+            if (!enginesound.isPlaying) enginesound.Play();
+        }
+        else
+        {
+            enginesound.mute = true;
+            enginesound.Pause(); // Pause stops the sound completely
+        }
+    }
+    public void toggleskidsound(bool toggle)
     {
         skidsound.mute = !toggle;
     }
